@@ -1,0 +1,287 @@
+[
+  {
+    "student_id": 390,
+    "demo_case": "A",
+    "title": "Consistent High Velocity (Stable Trajectory)",
+    "narrative": "High entry academic confidence reinforced by perfect first- and second-semester approval velocity.",
+    "profile": {
+      "id": 390,
+      "target": "Graduate",
+      "cluster_id": 4,
+      "cluster_title": "Moderate Progress / Intermediate Risk Dynamic",
+      "uncertainty": 0.289,
+      "position": [
+        3.27,
+        6.01,
+        -0.18
+      ],
+      "checkpoints": {
+        "entry": {
+          "coords": [
+            -12.61,
+            10.97,
+            -1.92
+          ],
+          "probas": {
+            "dropout": 0.116,
+            "enrolled": 0.048,
+            "graduate": 0.836
+          },
+          "pred": "Graduate"
+        },
+        "sem1": {
+          "coords": [
+            -4.58,
+            9.27,
+            -1.44
+          ],
+          "probas": {
+            "dropout": 0.042,
+            "enrolled": 0.027,
+            "graduate": 0.931
+          },
+          "pred": "Graduate"
+        },
+        "sem2": {
+          "coords": [
+            3.27,
+            6.01,
+            -0.18
+          ],
+          "probas": {
+            "dropout": 0.035,
+            "enrolled": 0.04,
+            "graduate": 0.925
+          },
+          "pred": "Graduate"
+        }
+      },
+      "top_features": [
+        {
+          "name": "1st Sem Approved Units",
+          "val": 6.0,
+          "contrib": 1.2999999999999998
+        },
+        {
+          "name": "2nd Sem Approved Units",
+          "val": 6.0,
+          "contrib": 1.5
+        },
+        {
+          "name": "Admission Grade",
+          "val": 156.1,
+          "contrib": 29.19999999999999
+        },
+        {
+          "name": "Tuition Status",
+          "val": 1,
+          "contrib": 1.2
+        },
+        {
+          "name": "Scholarship",
+          "val": 1,
+          "contrib": 0.8
+        }
+      ],
+      "metadata": {
+        "age": 21,
+        "gender": "Female",
+        "scholarship": true,
+        "debtor": false,
+        "tuition_ok": true,
+        "sem1_approved": 6.0,
+        "sem2_approved": 6.0
+      }
+    }
+  },
+  {
+    "student_id": 253,
+    "demo_case": "B",
+    "title": "Academic Pivot & First-Semester Momentum Surge",
+    "narrative": "Modest entry qualifications overcome by decisive first-semester academic mastery, bending the model trajectory toward graduation.",
+    "profile": {
+      "id": 253,
+      "target": "Graduate",
+      "cluster_id": 2,
+      "cluster_title": "High Academic Velocity / Consistent Mastery",
+      "uncertainty": 0.481,
+      "position": [
+        -1.32,
+        -4.87,
+        11.25
+      ],
+      "checkpoints": {
+        "entry": {
+          "coords": [
+            -13.95,
+            1.6,
+            7.7
+          ],
+          "probas": {
+            "dropout": 0.457,
+            "enrolled": 0.159,
+            "graduate": 0.384
+          },
+          "pred": "Dropout"
+        },
+        "sem1": {
+          "coords": [
+            -7.56,
+            -1.17,
+            9.29
+          ],
+          "probas": {
+            "dropout": 0.021,
+            "enrolled": 0.159,
+            "graduate": 0.82
+          },
+          "pred": "Graduate"
+        },
+        "sem2": {
+          "coords": [
+            -1.32,
+            -4.87,
+            11.25
+          ],
+          "probas": {
+            "dropout": 0.032,
+            "enrolled": 0.132,
+            "graduate": 0.835
+          },
+          "pred": "Graduate"
+        }
+      },
+      "top_features": [
+        {
+          "name": "1st Sem Approved Units",
+          "val": 5.0,
+          "contrib": 0.2999999999999998
+        },
+        {
+          "name": "2nd Sem Approved Units",
+          "val": 5.0,
+          "contrib": 0.5
+        },
+        {
+          "name": "Admission Grade",
+          "val": 103.4,
+          "contrib": -23.5
+        },
+        {
+          "name": "Tuition Status",
+          "val": 1,
+          "contrib": 1.2
+        },
+        {
+          "name": "Scholarship",
+          "val": 0,
+          "contrib": -0.3
+        }
+      ],
+      "metadata": {
+        "age": 19,
+        "gender": "Female",
+        "scholarship": false,
+        "debtor": false,
+        "tuition_ok": true,
+        "sem1_approved": 5.0,
+        "sem2_approved": 5.0
+      }
+    }
+  },
+  {
+    "student_id": 107,
+    "demo_case": "C",
+    "title": "Critical Academic Fracture & Trajectory Divergence",
+    "narrative": "Promising initial enrollment disrupted by non-completion of first-semester curricular units and fee distress.",
+    "profile": {
+      "id": 107,
+      "target": "Dropout",
+      "cluster_id": 0,
+      "cluster_title": "Early Academic Friction / Critical Dropout Risk",
+      "uncertainty": 0.294,
+      "position": [
+        -8.97,
+        0.6,
+        -0.92
+      ],
+      "checkpoints": {
+        "entry": {
+          "coords": [
+            -13.65,
+            -0.76,
+            -0.01
+          ],
+          "probas": {
+            "dropout": 0.301,
+            "enrolled": 0.172,
+            "graduate": 0.527
+          },
+          "pred": "Graduate"
+        },
+        "sem1": {
+          "coords": [
+            -11.42,
+            0.16,
+            -0.6
+          ],
+          "probas": {
+            "dropout": 0.864,
+            "enrolled": 0.064,
+            "graduate": 0.072
+          },
+          "pred": "Dropout"
+        },
+        "sem2": {
+          "coords": [
+            -8.97,
+            0.6,
+            -0.92
+          ],
+          "probas": {
+            "dropout": 0.923,
+            "enrolled": 0.049,
+            "graduate": 0.028
+          },
+          "pred": "Dropout"
+        }
+      },
+      "top_features": [
+        {
+          "name": "1st Sem Approved Units",
+          "val": 0.0,
+          "contrib": -4.7
+        },
+        {
+          "name": "2nd Sem Approved Units",
+          "val": 0.0,
+          "contrib": -4.5
+        },
+        {
+          "name": "Admission Grade",
+          "val": 118.2,
+          "contrib": -8.700000000000003
+        },
+        {
+          "name": "Tuition Status",
+          "val": 1,
+          "contrib": 1.2
+        },
+        {
+          "name": "Scholarship",
+          "val": 0,
+          "contrib": -0.3
+        }
+      ],
+      "metadata": {
+        "age": 19,
+        "gender": "Female",
+        "scholarship": false,
+        "debtor": false,
+        "tuition_ok": true,
+        "sem1_approved": 0.0,
+        "sem2_approved": 0.0
+      }
+    }
+  }
+]

@@ -1,0 +1,216 @@
+{
+  "entry": {
+    "Logistic Regression": {
+      "accuracy": 0.5288,
+      "macro_f1": 0.5048,
+      "weighted_f1": 0.5534,
+      "balanced_accuracy": 0.5108,
+      "log_loss": 0.9346
+    },
+    "Random Forest": {
+      "accuracy": 0.5921,
+      "macro_f1": 0.544,
+      "weighted_f1": 0.5972,
+      "balanced_accuracy": 0.5464,
+      "log_loss": 0.8789
+    },
+    "HistGradientBoosting": {
+      "accuracy": 0.5853,
+      "macro_f1": 0.5403,
+      "weighted_f1": 0.5923,
+      "balanced_accuracy": 0.5421,
+      "log_loss": 0.9406
+    },
+    "Calibrated HistGB": {
+      "accuracy": 0.6316,
+      "macro_f1": 0.4943,
+      "balanced_accuracy": 0.5058,
+      "log_loss": 0.841,
+      "confusion_matrix": [
+        [
+          156,
+          6,
+          122
+        ],
+        [
+          30,
+          14,
+          115
+        ],
+        [
+          48,
+          5,
+          389
+        ]
+      ],
+      "calibration_curve": {
+        "prob_true": [
+          0.0213,
+          0.0333,
+          0.2,
+          0.3776,
+          0.4264,
+          0.5751,
+          0.6837,
+          0.8131,
+          1.0
+        ],
+        "prob_pred": [
+          0.0569,
+          0.1464,
+          0.25,
+          0.3528,
+          0.4464,
+          0.5533,
+          0.6487,
+          0.7384,
+          0.8207
+        ]
+      }
+    }
+  },
+  "sem1": {
+    "Logistic Regression": {
+      "accuracy": 0.696,
+      "macro_f1": 0.6562,
+      "weighted_f1": 0.7127,
+      "balanced_accuracy": 0.6642,
+      "log_loss": 0.703
+    },
+    "Random Forest": {
+      "accuracy": 0.7141,
+      "macro_f1": 0.6658,
+      "weighted_f1": 0.7203,
+      "balanced_accuracy": 0.6691,
+      "log_loss": 0.6839
+    },
+    "HistGradientBoosting": {
+      "accuracy": 0.7153,
+      "macro_f1": 0.662,
+      "weighted_f1": 0.7196,
+      "balanced_accuracy": 0.6634,
+      "log_loss": 0.7169
+    },
+    "Calibrated HistGB": {
+      "accuracy": 0.7367,
+      "macro_f1": 0.63,
+      "balanced_accuracy": 0.6265,
+      "log_loss": 0.6628,
+      "confusion_matrix": [
+        [
+          206,
+          21,
+          57
+        ],
+        [
+          43,
+          36,
+          80
+        ],
+        [
+          17,
+          15,
+          410
+        ]
+      ],
+      "calibration_curve": {
+        "prob_true": [
+          0.0116,
+          0.0755,
+          0.1321,
+          0.2545,
+          0.4694,
+          0.4937,
+          0.7197,
+          0.8602,
+          0.9216,
+          1.0
+        ],
+        "prob_pred": [
+          0.0382,
+          0.1425,
+          0.2427,
+          0.3454,
+          0.4457,
+          0.5526,
+          0.6575,
+          0.75,
+          0.8374,
+          0.924
+        ]
+      }
+    }
+  },
+  "sem2": {
+    "Logistic Regression": {
+      "accuracy": 0.7288,
+      "macro_f1": 0.6927,
+      "weighted_f1": 0.7434,
+      "balanced_accuracy": 0.7047,
+      "log_loss": 0.6459
+    },
+    "Random Forest": {
+      "accuracy": 0.7514,
+      "macro_f1": 0.7065,
+      "weighted_f1": 0.7564,
+      "balanced_accuracy": 0.709,
+      "log_loss": 0.6148
+    },
+    "HistGradientBoosting": {
+      "accuracy": 0.7503,
+      "macro_f1": 0.7014,
+      "weighted_f1": 0.7551,
+      "balanced_accuracy": 0.7044,
+      "log_loss": 0.6443
+    },
+    "Calibrated HistGB": {
+      "accuracy": 0.7661,
+      "macro_f1": 0.6798,
+      "balanced_accuracy": 0.6691,
+      "log_loss": 0.6003,
+      "confusion_matrix": [
+        [
+          213,
+          23,
+          48
+        ],
+        [
+          38,
+          51,
+          70
+        ],
+        [
+          15,
+          13,
+          414
+        ]
+      ],
+      "calibration_curve": {
+        "prob_true": [
+          0.0045,
+          0.0612,
+          0.1622,
+          0.3611,
+          0.4043,
+          0.5714,
+          0.6703,
+          0.8592,
+          0.9345,
+          1.0
+        ],
+        "prob_pred": [
+          0.0336,
+          0.1477,
+          0.2455,
+          0.3397,
+          0.4532,
+          0.5526,
+          0.658,
+          0.7528,
+          0.8425,
+          0.9144
+        ]
+      }
+    }
+  }
+}

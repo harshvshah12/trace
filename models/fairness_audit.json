@@ -1,0 +1,98 @@
+{
+  "Gender": [
+    {
+      "label": "Female",
+      "sample_size": 570,
+      "accuracy": 0.793,
+      "macro_f1": 0.6988,
+      "distribution": {
+        "Dropout": 139,
+        "Enrolled": 101,
+        "Graduate": 330
+      }
+    },
+    {
+      "label": "Male",
+      "sample_size": 315,
+      "accuracy": 0.7175,
+      "macro_f1": 0.6435,
+      "distribution": {
+        "Dropout": 145,
+        "Enrolled": 58,
+        "Graduate": 112
+      }
+    }
+  ],
+  "Scholarship holder": [
+    {
+      "label": "Non-Scholarship",
+      "sample_size": 680,
+      "accuracy": 0.7456,
+      "macro_f1": 0.6834,
+      "distribution": {
+        "Dropout": 265,
+        "Enrolled": 133,
+        "Graduate": 282
+      }
+    },
+    {
+      "label": "Scholarship",
+      "sample_size": 205,
+      "accuracy": 0.8341,
+      "macro_f1": 0.5672,
+      "distribution": {
+        "Dropout": 19,
+        "Enrolled": 26,
+        "Graduate": 160
+      }
+    }
+  ],
+  "Displaced": [
+    {
+      "label": "Non-Displaced",
+      "sample_size": 401,
+      "accuracy": 0.7756,
+      "macro_f1": 0.6804,
+      "distribution": {
+        "Dropout": 149,
+        "Enrolled": 71,
+        "Graduate": 181
+      }
+    },
+    {
+      "label": "Displaced",
+      "sample_size": 484,
+      "accuracy": 0.7583,
+      "macro_f1": 0.6746,
+      "distribution": {
+        "Dropout": 135,
+        "Enrolled": 88,
+        "Graduate": 261
+      }
+    }
+  ],
+  "International": [
+    {
+      "label": "Domestic",
+      "sample_size": 861,
+      "accuracy": 0.7689,
+      "macro_f1": 0.6821,
+      "distribution": {
+        "Dropout": 275,
+        "Enrolled": 156,
+        "Graduate": 430
+      }
+    },
+    {
+      "label": "International",
+      "sample_size": 24,
+      "accuracy": 0.6667,
+      "macro_f1": 0.6131,
+      "distribution": {
+        "Dropout": 9,
+        "Enrolled": 3,
+        "Graduate": 12
+      }
+    }
+  ]
+}
