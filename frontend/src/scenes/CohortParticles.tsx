@@ -1,6 +1,5 @@
-import React, { useRef, useMemo, useEffect } from 'react';
+﻿import React, { useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
 import { CohortPoint } from '../types';
 import { COLOR_GRADUATE, COLOR_DROPOUT, COLOR_ENROLLED, getProbabilityColor } from '../lib/math3d';
 
@@ -29,7 +28,6 @@ export const CohortParticles: React.FC<CohortParticlesProps> = ({
   const count = points.length;
 
   const dummy = useMemo(() => new THREE.Object3D(), []);
-  const color = useMemo(() => new THREE.Color(), []);
 
   // Initialize instance matrices and colors
   useEffect(() => {
@@ -74,14 +72,6 @@ export const CohortParticles: React.FC<CohortParticlesProps> = ({
     meshRef.current.instanceMatrix.needsUpdate = true;
     if (meshRef.current.instanceColor) meshRef.current.instanceColor.needsUpdate = true;
   }, [points, selectedStudentId, hoveredStudentId, filterOutcome, filterCluster, count]);
-
-  // Subtle living breathing animation
-  useFrame((state) => {
-    if (!meshRef.current || showTerrain || selectedStudentId !== null) return;
-    const time = state.clock.getElapsedTime();
-    meshRef.current.rotation.y = Math.sin(time * 0.05) * 0.04;
-    meshRef.current.rotation.x = Math.cos(time * 0.04) * 0.02;
-  });
 
   return (
     <group visible={!showTerrain}>
