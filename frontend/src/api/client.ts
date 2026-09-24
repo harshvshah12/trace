@@ -1,4 +1,4 @@
-import {
+﻿import {
   StudentDetail,
   CohortPoint,
   ArchetypeProfile,
@@ -7,7 +7,7 @@ import {
   SimulationBranch
 } from '../types';
 
-const API_BASE = 'http://localhost:8081';
+const API_BASE = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8081';
 
 let cachedCohort: { students: StudentDetail[]; archetypes: ArchetypeProfile[] } | null = null;
 
@@ -191,3 +191,4 @@ export async function runSimulation(
     dominant_driving_feature: changes.sem2_approved !== undefined ? 'Curricular Units Approved' : 'Tuition Status'
   };
 }
+
