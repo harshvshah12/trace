@@ -1,6 +1,6 @@
-import React from 'react';
+﻿import React from 'react';
 import { StudentDetail, CheckpointKey } from '../types';
-import { Sparkles, Compass, GitBranch, X, Award, ShieldAlert, BookOpen, Layers } from 'lucide-react';
+import { Sparkles, Compass, GitBranch, X, Award, ShieldAlert, BookOpen, Layers, Lightbulb, Info } from 'lucide-react';
 
 interface StudentDetailPanelProps {
   student: StudentDetail;
@@ -11,6 +11,7 @@ interface StudentDetailPanelProps {
   onToggleConstellation: () => void;
   showGravities: boolean;
   onToggleGravities: () => void;
+  onOpenGuide?: () => void;
 }
 
 export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
@@ -21,7 +22,8 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
   showConstellation,
   onToggleConstellation,
   showGravities,
-  onToggleGravities
+  onToggleGravities,
+  onOpenGuide
 }) => {
   const currentCP = student.checkpoints[activeCheckpoint];
   const { probas, pred } = currentCP;
@@ -32,6 +34,18 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
       : student.target === 'Dropout'
       ? 'text-signal-dropout border-signal-dropout/30 bg-signal-dropout/10'
       : 'text-signal-enrolled border-signal-enrolled/30 bg-signal-enrolled/10';
+
+  // Dynamic plain-English narrative of what is happening on screen
+  let plainEnglishStory = '';
+  if (activeCheckpoint === 'entry') {
+    plainEnglishStory = `Day 1 at University: The AI only knows high school grades and family background. It estimates a ${(probas.graduate * 100).toFixed(0)}% chance of graduating. Look at where the line begins in the 3D space.`;
+  } else if (activeCheckpoint === 'sem1') {
+    const shift = (probas.graduate - student.checkpoints.entry.probas.graduate) * 100;
+    const isUp = shift >= 0;
+    plainEnglishStory = `Semester 1 grades arrived! Because this student passed ${student.metadata.sem1_approved} classes, the AI updated its prediction by ${isUp ? '+' : ''}${shift.toFixed(0)}%. You can literally see their 3D line bend ${isUp ? 'upward towards graduation' : 'downward towards dropout'}.`;
+  } else {
+    plainEnglishStory = `Semester 2 finished! Full first-year performance is locked in. The line has finished bending and settled into its final prediction: ${pred.toUpperCase()} (${(probas.graduate * 100).toFixed(0)}% graduation confidence).`;
+  }
 
   return (
     <aside className="absolute top-20 right-4 w-96 z-40 bg-obsidian-900/90 backdrop-blur-xl border border-obsidian-700/70 rounded-2xl p-5 shadow-2xl space-y-4 max-h-[calc(100vh-160px)] overflow-y-auto">
@@ -56,10 +70,31 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
         </button>
       </div>
 
+      {/* PLAIN ENGLISH EXPLANATION BOX */}
+      <div className="bg-signal-cyan/10 border border-signal-cyan/30 rounded-xl p-3 space-y-1.5 font-mono">
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-bold text-signal-cyan uppercase tracking-wider flex items-center space-x-1">
+            <Info className="w-3.5 h-3.5" />
+            <span>WHAT THIS MEANS IN PLAIN WORDS:</span>
+          </span>
+          {onOpenGuide && (
+            <button
+              onClick={onOpenGuide}
+              className="text-[9px] text-signal-cyan hover:underline"
+            >
+              Full Guide
+            </button>
+          )}
+        </div>
+        <p className="text-[11px] text-slate-200 leading-relaxed font-sans">
+          {plainEnglishStory}
+        </p>
+      </div>
+
       {/* Model Predicted Probability at Active Checkpoint */}
       <div className="bg-obsidian-950/70 border border-obsidian-800 rounded-xl p-3.5 space-y-2.5">
         <div className="flex items-center justify-between text-[11px] font-mono">
-          <span className="text-slate-400">CHECKPOINT PREDICTION</span>
+          <span className="text-slate-400">AI CONFIDENCE METER</span>
           <span className="font-bold text-slate-200 uppercase">{pred}</span>
         </div>
 
@@ -67,7 +102,7 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
         <div className="space-y-1.5">
           <div className="space-y-1">
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-signal-graduate">Graduate</span>
+              <span className="text-signal-graduate">Likely to Graduate (Green Bubble)</span>
               <span className="text-slate-200">{(probas.graduate * 100).toFixed(1)}%</span>
             </div>
             <div className="w-full h-1.5 bg-obsidian-800 rounded-full overflow-hidden">
@@ -80,7 +115,7 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
 
           <div className="space-y-1">
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-signal-enrolled">Enrolled</span>
+              <span className="text-signal-enrolled">Still Enrolled (Yellow Bubble)</span>
               <span className="text-slate-200">{(probas.enrolled * 100).toFixed(1)}%</span>
             </div>
             <div className="w-full h-1.5 bg-obsidian-800 rounded-full overflow-hidden">
@@ -93,7 +128,7 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
 
           <div className="space-y-1">
             <div className="flex justify-between text-[10px] font-mono">
-              <span className="text-signal-dropout">Dropout</span>
+              <span className="text-signal-dropout">Risk of Dropping Out (Red Bubble)</span>
               <span className="text-slate-200">{(probas.dropout * 100).toFixed(1)}%</span>
             </div>
             <div className="w-full h-1.5 bg-obsidian-800 rounded-full overflow-hidden">
@@ -106,18 +141,25 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
         </div>
 
         <div className="flex items-center justify-between text-[10px] font-mono pt-1 text-slate-400 border-t border-obsidian-800/60">
-          <span>Model Entropy Uncertainty</span>
+          <span>AI Uncertainty Score</span>
           <span className="text-slate-300">{(student.uncertainty * 100).toFixed(0)}%</span>
         </div>
       </div>
 
       {/* Trajectory Checkpoint Stepper */}
       <div className="space-y-1.5">
-        <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Trajectory Checkpoint</span>
+        <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">
+          Click A Stop on Their Journey:
+        </span>
         <div className="grid grid-cols-3 gap-1.5 text-center font-mono text-[10px]">
           {(['entry', 'sem1', 'sem2'] as CheckpointKey[]).map((cp) => {
             const isCurrent = activeCheckpoint === cp;
             const p = student.checkpoints[cp].probas.graduate;
+            const titles: Record<CheckpointKey, string> = {
+              entry: 'Day 1 Entry',
+              sem1: 'Semester 1',
+              sem2: 'Semester 2'
+            };
             return (
               <div
                 key={cp}
@@ -127,7 +169,7 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
                     : 'border-obsidian-800 bg-obsidian-950/40 text-slate-400'
                 }`}
               >
-                <div className="uppercase">{cp}</div>
+                <div className="font-bold">{titles[cp]}</div>
                 <div className="text-[9px] text-slate-300 mt-0.5">{(p * 100).toFixed(0)}% Grad</div>
               </div>
             );
@@ -138,8 +180,8 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
       {/* Top Predictive Contributors */}
       <div className="space-y-2">
         <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
-          <span className="uppercase tracking-wider">Top Driving Signals</span>
-          <span>Deviation</span>
+          <span className="uppercase tracking-wider">Why Did The Trajectory Move?</span>
+          <span>Impact</span>
         </div>
         <div className="space-y-1.5">
           {student.top_features.map((feat) => {
@@ -151,7 +193,7 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
               >
                 <span className="text-slate-300 text-xs truncate max-w-[190px]">{feat.name}</span>
                 <span className={`text-xs font-semibold ${isPos ? 'text-signal-graduate' : 'text-signal-dropout'}`}>
-                  {isPos ? '+' : ''}{feat.contrib.toFixed(1)}
+                  {isPos ? '+' : ''}{feat.contrib.toFixed(1)} {isPos ? 'Grad' : 'Risk'}
                 </span>
               </div>
             );
@@ -164,6 +206,7 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
         <div className="grid grid-cols-2 gap-2 text-xs">
           <button
             onClick={onToggleConstellation}
+            title="Shows orbiting 3D star nodes around the student explaining why they moved"
             className={`py-2 px-2.5 rounded-xl border flex items-center justify-center space-x-1.5 transition-all ${
               showConstellation
                 ? 'bg-signal-cyan/20 border-signal-cyan text-signal-cyan'
@@ -176,6 +219,7 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
 
           <button
             onClick={onToggleGravities}
+            title="Shows lines connecting the student to the Graduate and Dropout zones"
             className={`py-2 px-2.5 rounded-xl border flex items-center justify-center space-x-1.5 transition-all ${
               showGravities
                 ? 'bg-signal-graduate/20 border-signal-graduate text-signal-graduate'
@@ -192,7 +236,7 @@ export const StudentDetailPanel: React.FC<StudentDetailPanelProps> = ({
           className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-signal-cyan/25 to-signal-violet/25 hover:from-signal-cyan/40 hover:to-signal-violet/40 border border-signal-cyan/40 text-signal-cyan font-bold text-xs flex items-center justify-center space-x-2 transition-all shadow-lg"
         >
           <GitBranch className="w-4 h-4" />
-          <span>SIMULATE ANOTHER PATH</span>
+          <span>SIMULATE "WHAT IF?" PATH</span>
         </button>
       </div>
     </aside>

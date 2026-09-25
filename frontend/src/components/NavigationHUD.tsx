@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewMode } from '../types';
-import { Compass, GitBranch, Mountain, Activity, Database, Play, RotateCcw, Eye, Monitor } from 'lucide-react';
+import { Compass, GitBranch, Mountain, Activity, Database, Play, RotateCcw, Eye, Monitor, Lightbulb } from 'lucide-react';
 
 interface NavigationHUDProps {
   currentMode: ViewMode;
@@ -12,6 +12,7 @@ interface NavigationHUDProps {
   onToggle3D: () => void;
   selectedStudentId: number | null;
   totalStudents: number;
+  onOpenGuide?: () => void;
 }
 
 export const NavigationHUD: React.FC<NavigationHUDProps> = ({
@@ -23,7 +24,8 @@ export const NavigationHUD: React.FC<NavigationHUDProps> = ({
   is3DMode,
   onToggle3D,
   selectedStudentId,
-  totalStudents
+  totalStudents,
+  onOpenGuide
 }) => {
   const navItems: { mode: ViewMode; label: string; icon: React.ReactNode }[] = [
     { mode: 'observe', label: 'OBSERVE', icon: <Compass className="w-4 h-4" /> },
@@ -74,8 +76,19 @@ export const NavigationHUD: React.FC<NavigationHUDProps> = ({
         })}
       </nav>
 
-      {/* Right Controls: Demo, Reset, 3D Toggle */}
+      {/* Right Controls: Guide, Demo, Reset, 3D Toggle */}
       <div className="flex items-center space-x-2 pointer-events-auto">
+        {onOpenGuide && (
+          <button
+            onClick={onOpenGuide}
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-signal-cyan/15 hover:bg-signal-cyan/25 text-signal-cyan border border-signal-cyan/40 text-xs font-mono font-bold transition-all shadow-lg shadow-signal-cyan/10"
+            title="Explain what everything on screen means in plain words"
+          >
+            <Lightbulb className="w-3.5 h-3.5" />
+            <span>HOW TO READ THIS</span>
+          </button>
+        )}
+
         <button
           onClick={onStartDemo}
           className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-mono tracking-wide transition-all shadow-lg ${

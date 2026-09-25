@@ -28,7 +28,8 @@ import { DemoOverlay } from './components/DemoOverlay';
 import { ModelLabModal } from './components/ModelLabModal';
 import { DatasetExplorerModal } from './components/DatasetExplorerModal';
 import { AccessibleCohortView } from './components/AccessibleCohortView';
-import { Sparkles, ArrowRight, Compass, ShieldAlert } from 'lucide-react';
+import { PlainEnglishGuideModal } from './components/PlainEnglishGuideModal';
+import { Sparkles, ArrowRight, Compass, ShieldAlert, Lightbulb, Info } from 'lucide-react';
 
 export function App() {
   // Application State
@@ -37,6 +38,7 @@ export function App() {
   const [currentMode, setCurrentMode] = useState<ViewMode>('observe');
   const [activeCheckpoint, setActiveCheckpoint] = useState<CheckpointKey>('sem2');
   const [terrainMode, setTerrainMode] = useState<TerrainMode>('density');
+  const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
 
   // Data State
   const [points, setPoints] = useState<CohortPoint[]>([]);
@@ -206,6 +208,7 @@ export function App() {
         onToggle3D={() => setIs3DMode(!is3DMode)}
         selectedStudentId={selectedStudent ? selectedStudent.id : null}
         totalStudents={points.length}
+        onOpenGuide={() => setIsGuideOpen(true)}
       />
 
       {/* 3D WebGL Scene or 2D Accessible Fallback */}
@@ -239,6 +242,45 @@ export function App() {
         />
       )}
 
+      {/* Persistent Canvas Visual Legend (Bottom-Left) */}
+      {is3DMode && (
+        <div className="absolute bottom-6 left-6 z-30 pointer-events-auto bg-obsidian-900/90 backdrop-blur-md border border-obsidian-700/70 rounded-2xl p-3.5 shadow-2xl font-mono text-[11px] space-y-2 max-w-xs">
+          <div className="flex items-center justify-between border-b border-obsidian-800 pb-1.5">
+            <span className="font-bold text-slate-300 text-[10px] uppercase tracking-wider flex items-center space-x-1.5">
+              <Info className="w-3.5 h-3.5 text-signal-cyan" />
+              <span>WHAT AM I LOOKING AT?</span>
+            </span>
+            <button
+              onClick={() => setIsGuideOpen(true)}
+              className="text-[10px] text-signal-cyan hover:underline font-bold"
+            >
+              Full Guide
+            </button>
+          </div>
+          <div className="space-y-1.5 text-[10px] text-slate-300 font-sans">
+            <div className="flex items-center space-x-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-signal-graduate shrink-0 shadow-sm shadow-signal-graduate/50" />
+              <span><strong>Green Dots:</strong> On track to graduate</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-signal-enrolled shrink-0 shadow-sm shadow-signal-enrolled/50" />
+              <span><strong>Yellow Dots:</strong> Still enrolled</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-signal-dropout shrink-0 shadow-sm shadow-signal-dropout/50" />
+              <span><strong>Red Dots:</strong> At risk of dropping out</span>
+            </div>
+            <div className="flex items-center space-x-2 pt-1 border-t border-obsidian-800/80">
+              <span className="w-3 h-0.5 bg-signal-cyan shrink-0 rounded" />
+              <span><strong>Curving Line:</strong> Journey (Entry → Sem 1 → Sem 2)</span>
+            </div>
+          </div>
+          <p className="text-[9px] text-slate-500 italic pt-0.5 font-mono">
+            Click any dot to reveal their line. Left-click drag to orbit 360°.
+          </p>
+        </div>
+      )}
+
       {/* Selected Student Telemetry Panel */}
       {selectedStudent && currentMode !== 'simulate' && (
         <StudentDetailPanel
@@ -250,6 +292,7 @@ export function App() {
           onToggleConstellation={() => setShowConstellation(!showConstellation)}
           showGravities={showGravities}
           onToggleGravities={() => setShowGravities(!showGravities)}
+          onOpenGuide={() => setIsGuideOpen(true)}
         />
       )}
 
@@ -293,6 +336,7 @@ export function App() {
           onSetCheckpoint={setActiveCheckpoint}
           isReplaying={isReplaying}
           onToggleReplay={() => setIsReplaying(!isReplaying)}
+          onOpenGuide={() => setIsGuideOpen(true)}
         />
       )}
 
@@ -320,6 +364,11 @@ export function App() {
       {/* Dataset Explorer Modal */}
       {currentMode === 'data' && (
         <DatasetExplorerModal onClose={() => setCurrentMode('observe')} />
+      )}
+
+      {/* Plain English Explanation Guide Modal */}
+      {isGuideOpen && (
+        <PlainEnglishGuideModal onClose={() => setIsGuideOpen(false)} />
       )}
     </main>
   );

@@ -1,4 +1,4 @@
-﻿import {
+import {
   StudentDetail,
   CohortPoint,
   ArchetypeProfile,
@@ -7,7 +7,8 @@
   SimulationBranch
 } from '../types';
 
-const API_BASE = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8081';
+const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const API_BASE = ((import.meta as any).env?.VITE_API_URL as string) || (isLocal ? 'http://127.0.0.1:8081' : '');
 
 let cachedCohort: { students: StudentDetail[]; archetypes: ArchetypeProfile[] } | null = null;
 
@@ -16,18 +17,20 @@ export async function fetchCohortData(): Promise<{
   archetypes: ArchetypeProfile[];
   allStudents: StudentDetail[];
 }> {
-  try {
-    const res = await fetch(`${API_BASE}/cohort/points`);
-    if (res.ok) {
-      const data = await res.json();
-      return {
-        points: data.points,
-        archetypes: data.archetypes,
-        allStudents: []
-      };
+  if (API_BASE) {
+    try {
+      const res = await fetch(`${API_BASE}/cohort/points`);
+      if (res.ok) {
+        const data = await res.json();
+        return {
+          points: data.points,
+          archetypes: data.archetypes,
+          allStudents: []
+        };
+      }
+    } catch (e) {
+      console.warn('Backend unavailable, falling back to static precomputed cohort data.');
     }
-  } catch (e) {
-    console.warn('Backend unavailable, falling back to static precomputed cohort data.');
   }
 
   // Fallback to local static json
@@ -54,11 +57,13 @@ export async function fetchCohortData(): Promise<{
 }
 
 export async function fetchStudentById(id: number): Promise<StudentDetail | null> {
-  try {
-    const res = await fetch(`${API_BASE}/students/${id}`);
-    if (res.ok) return await res.json();
-  } catch (e) {
-    // fallback
+  if (API_BASE) {
+    try {
+      const res = await fetch(`${API_BASE}/students/${id}`);
+      if (res.ok) return await res.json();
+    } catch (e) {
+      // fallback
+    }
   }
 
   if (!cachedCohort) {
@@ -70,11 +75,13 @@ export async function fetchStudentById(id: number): Promise<StudentDetail | null
 }
 
 export async function fetchTerrainData(): Promise<TerrainData> {
-  try {
-    const res = await fetch(`${API_BASE}/cohort/terrain`);
-    if (res.ok) return await res.json();
-  } catch (e) {
-    // fallback
+  if (API_BASE) {
+    try {
+      const res = await fetch(`${API_BASE}/cohort/terrain`);
+      if (res.ok) return await res.json();
+    } catch (e) {
+      // fallback
+    }
   }
 
   const res = await fetch('/data/precomputed_terrain.json');
@@ -82,11 +89,13 @@ export async function fetchTerrainData(): Promise<TerrainData> {
 }
 
 export async function fetchModelMetrics(): Promise<any> {
-  try {
-    const res = await fetch(`${API_BASE}/models/metrics`);
-    if (res.ok) return await res.json();
-  } catch (e) {
-    // fallback
+  if (API_BASE) {
+    try {
+      const res = await fetch(`${API_BASE}/models/metrics`);
+      if (res.ok) return await res.json();
+    } catch (e) {
+      // fallback
+    }
   }
 
   const res = await fetch('/data/model_metrics.json');
@@ -94,11 +103,13 @@ export async function fetchModelMetrics(): Promise<any> {
 }
 
 export async function fetchFairnessAudit(): Promise<any> {
-  try {
-    const res = await fetch(`${API_BASE}/fairness`);
-    if (res.ok) return await res.json();
-  } catch (e) {
-    // fallback
+  if (API_BASE) {
+    try {
+      const res = await fetch(`${API_BASE}/fairness`);
+      if (res.ok) return await res.json();
+    } catch (e) {
+      // fallback
+    }
   }
 
   const res = await fetch('/data/fairness_audit.json');
@@ -106,11 +117,13 @@ export async function fetchFairnessAudit(): Promise<any> {
 }
 
 export async function fetchDemoArchetypes(): Promise<DemoArchetype[]> {
-  try {
-    const res = await fetch(`${API_BASE}/demo/students`);
-    if (res.ok) return await res.json();
-  } catch (e) {
-    // fallback
+  if (API_BASE) {
+    try {
+      const res = await fetch(`${API_BASE}/demo/students`);
+      if (res.ok) return await res.json();
+    } catch (e) {
+      // fallback
+    }
   }
 
   const res = await fetch('/data/demo_archetypes.json');
@@ -123,24 +136,26 @@ export async function runSimulation(
   branchName: string = 'Path A',
   baseStudent?: StudentDetail
 ): Promise<SimulationBranch> {
-  try {
-    const res = await fetch(`${API_BASE}/simulate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        student_id: studentId,
-        ...changes
-      })
-    });
-    if (res.ok) {
-      const data = await res.json();
-      return {
-        id: `${studentId}-${branchName}-${Date.now()}`,
-        ...data
-      };
+  if (API_BASE) {
+    try {
+      const res = await fetch(`${API_BASE}/simulate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          student_id: studentId,
+          ...changes
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        return {
+          id: `${studentId}-${branchName}-${Date.now()}`,
+          ...data
+        };
+      }
+    } catch (e) {
+      console.warn('Backend simulate error, performing client-side model response simulation.');
     }
-  } catch (e) {
-    console.warn('Backend simulate error, performing client-side model response simulation.');
   }
 
   // Client-side mathematically consistent simulation fallback

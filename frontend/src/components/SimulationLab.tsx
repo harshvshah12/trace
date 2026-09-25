@@ -65,13 +65,26 @@ export const SimulationLab: React.FC<SimulationLabProps> = ({
         </button>
       </div>
 
-      {/* Scientific Methodology Note */}
-      <div className="bg-obsidian-950/70 border border-obsidian-800/80 rounded-xl p-3 flex items-start space-x-2.5">
-        <AlertCircle className="w-4 h-4 text-signal-cyan shrink-0 mt-0.5" />
-        <p className="text-[10px] text-slate-400 font-mono leading-relaxed">
-          <strong className="text-slate-300">Constrained Model-Response Simulator:</strong> Modifies valid academic &
-          administrative variables to inspect how the learned model responds. Not a causal guarantee.
+      {/* Plain-English Educational Callout */}
+      <div className="bg-signal-cyan/10 border border-signal-cyan/30 rounded-xl p-3 space-y-1.5 font-mono">
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-bold text-signal-cyan uppercase tracking-wider flex items-center space-x-1.5">
+            <AlertCircle className="w-3.5 h-3.5" />
+            <span>WHAT IS THIS EXPERIMENT DOING?</span>
+          </span>
+        </div>
+        <p className="text-[11px] text-slate-200 leading-relaxed font-sans">
+          This is a <strong>"What-If" time machine</strong>. In real life, if a struggling student receives academic tutoring and passes more classes, or gets financial help to pay their tuition, their future trajectory changes.
         </p>
+        <p className="text-[10px] text-slate-300 font-sans border-t border-signal-cyan/20 pt-1.5">
+          Move the sliders below to change their grades or tuition status, then click <strong className="text-signal-cyan">BRANCH PATH</strong>. TRACE will calculate the new probabilities and draw an alternate cyan path curving through space!
+        </p>
+      </div>
+
+      {/* Dynamic Scenario Readout */}
+      <div className="bg-obsidian-950/70 border border-obsidian-800 rounded-xl p-2.5 text-[11px] text-slate-300 font-mono">
+        <span className="text-[9px] text-slate-400 uppercase tracking-wide block mb-0.5">CURRENT TEST SCENARIO:</span>
+        Passing <strong className="text-signal-cyan">{sem1Approved} classes</strong> in Sem 1 & <strong className="text-signal-cyan">{sem2Approved} classes</strong> in Sem 2 with tuition <strong className={tuitionOk ? 'text-signal-graduate' : 'text-signal-dropout'}>{tuitionOk ? 'Paid' : 'Unpaid'}</strong> and <strong className={scholarship ? 'text-signal-cyan' : 'text-slate-400'}>{scholarship ? 'Scholarship' : 'No Scholarship'}</strong>.
       </div>
 
       {/* Variable Adjustments */}
