@@ -2,7 +2,7 @@
 
 > **A Next-Generation 3D Intelligence & Scientific Visualization System for Progressive Student Trajectory Analysis and Constrained Counterfactual Simulation**  
 > *Built on the UCI Machine Learning Repository Dataset ID 697: Predict Students' Dropout and Academic Success (4,424 Records, 36 Predictors, 3 Outcome Classes)*  
-> *Official IEEE Research Paper available at [`docs/IEEE_RESEARCH_PAPER.md`](docs/IEEE_RESEARCH_PAPER.md) and [`paper/trace_ieee_paper.tex`](paper/trace_ieee_paper.tex)*
+> *Official IEEE Research Paper available in [📄 PDF Format (`paper/TRACE_IEEE_Research_Paper.pdf`)](paper/TRACE_IEEE_Research_Paper.pdf), [📝 Word / Google Docs (`paper/TRACE_IEEE_Research_Paper.docx`)](paper/TRACE_IEEE_Research_Paper.docx), [📖 Markdown (`docs/IEEE_RESEARCH_PAPER.md`)](docs/IEEE_RESEARCH_PAPER.md), and [⚙️ LaTeX Source (`paper/trace_ieee_paper.tex`)](paper/trace_ieee_paper.tex)*
 
 ---
 
@@ -190,7 +190,11 @@ If you use TRACE in academic research, educational policy planning, or universit
 }
 ```
 
-The complete IEEE-style conference paper source code is available in [`paper/trace_ieee_paper.tex`](paper/trace_ieee_paper.tex) and the Markdown version in [`docs/IEEE_RESEARCH_PAPER.md`](docs/IEEE_RESEARCH_PAPER.md).
+The complete IEEE-style conference paper is available across four publication formats:
+- 📄 **[PDF Publication (`paper/TRACE_IEEE_Research_Paper.pdf`)](paper/TRACE_IEEE_Research_Paper.pdf)**
+- 📝 **[Microsoft Word / Google Docs (`paper/TRACE_IEEE_Research_Paper.docx`)](paper/TRACE_IEEE_Research_Paper.docx)**
+- 📖 **[Interactive Markdown (`docs/IEEE_RESEARCH_PAPER.md`)](docs/IEEE_RESEARCH_PAPER.md)**
+- ⚙️ **[LaTeX Source (`paper/trace_ieee_paper.tex`)](paper/trace_ieee_paper.tex)** and **[BibTeX (`paper/trace_references.bib`)](paper/trace_references.bib)**
 
 ---
 
