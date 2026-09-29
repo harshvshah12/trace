@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
-import { Text, Line } from '@react-three/drei';
+import { Html, Line } from '@react-three/drei';
 import { CheckpointProbability } from '../types';
 import { OUTCOME_GRAVITIES, COLOR_GRADUATE, COLOR_DROPOUT, COLOR_ENROLLED } from '../lib/math3d';
 
@@ -90,9 +90,11 @@ export const ProbabilityShells: React.FC<ProbabilityShellsProps> = ({
               <octahedronGeometry args={[1.5, 0]} />
               <meshStandardMaterial color={COLOR_GRADUATE} emissive={COLOR_GRADUATE} emissiveIntensity={0.8} wireframe />
             </mesh>
-            <Text position={[0, 2.2, 0]} fontSize={0.7} color="#10b981" anchorX="center">
-              ATTRACTOR: GRADUATE
-            </Text>
+            <Html position={[0, 2.2, 0]} center distanceFactor={35} style={{ pointerEvents: 'none' }}>
+              <div className="px-2 py-0.5 rounded bg-obsidian-950/90 border border-signal-graduate/60 text-[10px] font-mono whitespace-nowrap font-bold text-signal-graduate shadow-lg">
+                ATTRACTOR: GRADUATE
+              </div>
+            </Html>
             <Line
               points={[currentPos, OUTCOME_GRAVITIES.graduate]}
               color="#10b981"
@@ -112,9 +114,11 @@ export const ProbabilityShells: React.FC<ProbabilityShellsProps> = ({
               <octahedronGeometry args={[1.5, 0]} />
               <meshStandardMaterial color={COLOR_DROPOUT} emissive={COLOR_DROPOUT} emissiveIntensity={0.8} wireframe />
             </mesh>
-            <Text position={[0, 2.2, 0]} fontSize={0.7} color="#ef4444" anchorX="center">
-              ATTRACTOR: DROPOUT
-            </Text>
+            <Html position={[0, 2.2, 0]} center distanceFactor={35} style={{ pointerEvents: 'none' }}>
+              <div className="px-2 py-0.5 rounded bg-obsidian-950/90 border border-signal-dropout/60 text-[10px] font-mono whitespace-nowrap font-bold text-signal-dropout shadow-lg">
+                ATTRACTOR: DROPOUT
+              </div>
+            </Html>
             <Line
               points={[currentPos, OUTCOME_GRAVITIES.dropout]}
               color="#ef4444"
@@ -134,9 +138,11 @@ export const ProbabilityShells: React.FC<ProbabilityShellsProps> = ({
               <octahedronGeometry args={[1.5, 0]} />
               <meshStandardMaterial color={COLOR_ENROLLED} emissive={COLOR_ENROLLED} emissiveIntensity={0.8} wireframe />
             </mesh>
-            <Text position={[0, 2.2, 0]} fontSize={0.7} color="#f59e0b" anchorX="center">
-              ATTRACTOR: ENROLLED
-            </Text>
+            <Html position={[0, 2.2, 0]} center distanceFactor={35} style={{ pointerEvents: 'none' }}>
+              <div className="px-2 py-0.5 rounded bg-obsidian-950/90 border border-signal-enrolled/60 text-[10px] font-mono whitespace-nowrap font-bold text-signal-enrolled shadow-lg">
+                ATTRACTOR: ENROLLED
+              </div>
+            </Html>
             <Line
               points={[currentPos, OUTCOME_GRAVITIES.enrolled]}
               color="#f59e0b"

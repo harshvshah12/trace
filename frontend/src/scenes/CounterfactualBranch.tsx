@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
+import { Html } from '@react-three/drei';
 import { SimulationBranch } from '../types';
 import { createBranchCurve, COLOR_CYAN, COLOR_VIOLET } from '../lib/math3d';
 
@@ -93,17 +93,11 @@ const BranchItem: React.FC<{
             wireframe={!isActive}
           />
         </mesh>
-        <Text
-          position={[0, 1.2, 0]}
-          fontSize={0.5}
-          color={branchColor.getHexString() === '06b6d4' ? '#38bdf8' : '#c084fc'}
-          anchorX="center"
-          anchorY="bottom"
-          outlineWidth={0.03}
-          outlineColor="#090a0f"
-        >
-          {`${branch.branch_name}: ${branch.predicted_class} (ΔGrad: ${branch.deltas.delta_graduate > 0 ? '+' : ''}${(branch.deltas.delta_graduate * 100).toFixed(0)}%)`}
-        </Text>
+        <Html position={[0, 1.3, 0]} center distanceFactor={28} style={{ pointerEvents: 'none' }}>
+          <div className="px-2 py-0.5 rounded-lg bg-obsidian-950/90 border border-signal-cyan/60 text-[10px] font-mono whitespace-nowrap font-bold text-signal-cyan shadow-xl backdrop-blur-md">
+            {`${branch.branch_name}: ${branch.predicted_class} (ΔGrad: ${branch.deltas.delta_graduate > 0 ? '+' : ''}${(branch.deltas.delta_graduate * 100).toFixed(0)}%)`}
+          </div>
+        </Html>
       </group>
     </group>
   );

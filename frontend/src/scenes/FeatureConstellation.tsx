@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
-import { Text, Line } from '@react-three/drei';
+import { Html, Line } from '@react-three/drei';
 import { FeatureContribution } from '../types';
 
 interface FeatureConstellationProps {
@@ -65,17 +65,11 @@ export const FeatureConstellation: React.FC<FeatureConstellationProps> = ({
             </mesh>
 
             {/* Feature Label */}
-            <Text
-              position={[0, nodeRadius + 0.35, 0]}
-              fontSize={0.35}
-              color="#f8fafc"
-              anchorX="center"
-              anchorY="bottom"
-              outlineWidth={0.03}
-              outlineColor="#090a0f"
-            >
-              {`${f.name} (${f.contrib > 0 ? '+' : ''}${f.contrib.toFixed(1)})`}
-            </Text>
+            <Html position={[0, nodeRadius + 0.4, 0]} center distanceFactor={28} style={{ pointerEvents: 'none' }}>
+              <div className="px-1.5 py-0.5 rounded bg-obsidian-950/90 border border-slate-700 text-[9px] font-mono whitespace-nowrap text-slate-200 shadow-md">
+                {`${f.name} (${f.contrib > 0 ? '+' : ''}${f.contrib.toFixed(1)})`}
+              </div>
+            </Html>
           </group>
         );
       })}
